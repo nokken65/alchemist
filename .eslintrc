@@ -1,0 +1,70 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:effector/recommended",
+    "plugin:effector/scope",
+    "plugin:prettier/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "effector",
+    "prettier",
+    "simple-import-sort",
+    "jsx-a11y"
+  ],
+  "overrides": [],
+  "rules": {
+    "prettier/prettier": 1,
+
+    "arrow-body-style": 0,
+    "no-shadow": 0,
+    "no-use-before-define": 0,
+    "newline-before-return": 2,
+
+    "react/display-name": 0,
+    // "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/require-default-props": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "react/jsx-closing-bracket-location": 0,
+    "react/no-unstable-nested-components": 0,
+    "react/function-component-definition": 0,
+    "react/jsx-sort-props": [
+      2,
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true
+      }
+    ],
+
+    "simple-import-sort/imports": 2,
+    "simple-import-sort/exports": 2,
+
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ]
+  }
+}
