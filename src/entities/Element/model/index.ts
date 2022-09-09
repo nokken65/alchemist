@@ -1,2 +1,3 @@
-export * from './elements';
-export * from './researched';
+export * from './activeElements';
+export * from './allElements';
+export * from './researchedElements';

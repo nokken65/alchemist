@@ -1,17 +1,14 @@
-import { useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core';
+import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { clsx } from 'clsx';
-import { useUnit } from 'effector-react';
 import { memo } from 'react';
 
-import { Element } from '@/shared/api';
 import { useCombinedRefs } from '@/shared/hooks';
 
-import { setPosition } from '../model';
-import { Pos } from '../model/models';
+import { ActiveElement } from '../model/models';
 
-type ElementCardProps = Element & Pos;
+type ElementCardProps = ActiveElement;
 
-const ElementCardView = ({ x, y, id, class: slug, text }: ElementCardProps) => {
+const ElementCardView = ({ x, y, id, slug, text }: ElementCardProps) => {
   const {
     isDragging,
     attributes,
@@ -29,26 +26,6 @@ const ElementCardView = ({ x, y, id, class: slug, text }: ElementCardProps) => {
   });
 
   const setNodeRef = useCombinedRefs(asDrag, asDrop);
-
-  const setPos = useUnit(setPosition);
-
-  useDndMonitor({
-    onDragEnd: ({ delta, collisions, active }) => {
-      if (isDragging) {
-        const collistion = collisions?.at(-1);
-
-        // console.log({
-        //   class: collisions?.at(-1)?.data?.droppableContainer.data.current.slug,
-        // });
-
-        setPos({
-          id,
-          x: x + delta.x,
-          y: y + delta.y,
-        });
-      }
-    },
-  });
 
   const style = {
     transform: `translate3d(${transform ? transform.x + x : x}px, ${

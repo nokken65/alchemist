@@ -4,6 +4,8 @@ import {
   CollisionDetection,
 } from '@dnd-kit/core';
 
+import { getIntersectionRatio, sortCollisionsDesc } from './helpers';
+
 export const collisionDetection: CollisionDetection = (args) => {
   const {
     active: actv,
@@ -41,7 +43,7 @@ export const collisionDetection: CollisionDetection = (args) => {
 
       const intersectionRatio = getIntersectionRatio(rect, collisionRect);
 
-      if (intersectionRatio > 0) {
+      if (intersectionRatio > 0.3) {
         collisions.push({
           id,
           data: { droppableContainer, value: intersectionRatio },
@@ -52,31 +54,3 @@ export const collisionDetection: CollisionDetection = (args) => {
 
   return collisions.sort(sortCollisionsDesc);
 };
-
-function getIntersectionRatio(entry: ClientRect, target: ClientRect): number {
-  const top = Math.max(target.top, entry.top);
-  const left = Math.max(target.left, entry.left);
-  const right = Math.min(target.left + target.width, entry.left + entry.width);
-  const bottom = Math.min(target.top + target.height, entry.top + entry.height);
-  const width = right - left;
-  const height = bottom - top;
-
-  if (left < right && top < bottom) {
-    const targetArea = target.width * target.height;
-    const entryArea = entry.width * entry.height;
-    const intersectionArea = width * height;
-    const intersectionRatio =
-      intersectionArea / (targetArea + entryArea - intersectionArea);
-
-    return Number(intersectionRatio.toFixed(4));
-  }
-
-  return 0;
-}
-
-function sortCollisionsDesc(
-  { data: { value: a } }: CollisionDescriptor,
-  { data: { value: b } }: CollisionDescriptor,
-) {
-  return b - a;
-}

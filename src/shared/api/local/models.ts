@@ -1,19 +1,10 @@
-import {
-  Array,
-  Boolean,
-  Number,
-  Record,
-  Static,
-  String,
-  Tuple,
-} from 'runtypes';
+import { Array, Boolean, Record, Static, String, Tuple } from 'runtypes';
 
 const RecipeTuple = Tuple(String, String);
 
 export const ElementObject = Record({
-  id: Number,
   isBase: Boolean.optional(),
-  class: String,
+  slug: String,
   text: String,
   description: String,
   recipe: Array(RecipeTuple),

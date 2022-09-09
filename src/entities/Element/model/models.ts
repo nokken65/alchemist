@@ -1,8 +1,8 @@
-export type ElementRect = {
+import type { Element } from '@/shared/api';
+
+export type Pos = {
   x: number;
   y: number;
-  width: number;
-  height: number;
 };
 
-export type Pos = Pick<ElementRect, 'x' | 'y'>;
+export type ActiveElement = Element & { id: string } & Pos;

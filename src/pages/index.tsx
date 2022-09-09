@@ -1,9 +1,11 @@
+import './init';
+
 import { Route } from 'atomic-router-react';
 import { lazy, PropsWithChildren, Suspense } from 'react';
 
 import { homeRoute } from '@/shared/config/routes';
 
-const HomePage = lazy(() => import('./HomePage'));
+const HomePage = lazy(() => import('./Home'));
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (

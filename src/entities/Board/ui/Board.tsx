@@ -1,5 +1,6 @@
 import {
   DndContext,
+  DragEndEvent,
   PointerSensor,
   useSensor,
   useSensors,
@@ -8,7 +9,14 @@ import { memo, PropsWithChildren } from 'react';
 
 import { collisionDetection, restrictToWindowBorders } from '@/shared/utils';
 
-const BoardView = ({ children }: PropsWithChildren) => {
+const BoardView = ({
+  children,
+  onDoubleClick,
+  onDragEnd,
+}: PropsWithChildren<{
+  onDoubleClick?: () => void;
+  onDragEnd?: (event: DragEndEvent) => void;
+}>) => {
   const pointerSensor = useSensor(PointerSensor);
   const sensors = useSensors(pointerSensor);
 
@@ -18,8 +26,12 @@ const BoardView = ({ children }: PropsWithChildren) => {
       id='board'
       modifiers={[restrictToWindowBorders]}
       sensors={sensors}
+      onDragEnd={onDragEnd}
     >
-      <div className='relative h-full min-h-screen w-full overflow-hidden'>
+      <div
+        className='relative h-full min-h-screen w-full overflow-hidden'
+        onDoubleClick={onDoubleClick}
+      >
         {children}
       </div>
     </DndContext>
