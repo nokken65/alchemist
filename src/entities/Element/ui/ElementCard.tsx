@@ -1,53 +1,37 @@
-import { useDraggable, useDroppable } from '@dnd-kit/core';
+import { createDraggable } from '@thisbeyond/solid-dnd';
 import { clsx } from 'clsx';
-import { memo } from 'react';
-
-import { useCombinedRefs } from '@/shared/hooks';
+import { Component, splitProps } from 'solid-js';
 
 import { ActiveElement } from '../model/models';
 
 type ElementCardProps = ActiveElement;
 
-const ElementCardView = ({ x, y, id, slug, text }: ElementCardProps) => {
-  const {
-    isDragging,
-    attributes,
-    listeners,
-    setNodeRef: asDrag,
-    transform,
-  } = useDraggable({
-    id: `drag-${id}`,
-    data: { id, x, y, slug },
-  });
+export const ElementCard: Component<ElementCardProps> = (_props) => {
+  const [{ id, slug, text, x, y }, props] = splitProps(_props, [
+    'id',
+    'slug',
+    'text',
+    'x',
+    'y',
+  ]);
 
-  const { setNodeRef: asDrop } = useDroppable({
-    id: `drop-${id}`,
-    data: { id, x, y, slug },
-  });
-
-  const setNodeRef = useCombinedRefs(asDrag, asDrop);
+  const drag = createDraggable(id, { id, slug, x, y });
 
   const style = {
-    transform: `translate3d(${transform ? transform.x + x : x}px, ${
-      transform ? transform.y + y : y
-    }px, 0)`,
+    left: `${x}px`,
+    top: `${y}px`,
   };
 
   return (
     <div
-      className={clsx(
-        'absolute flex w-16 touch-manipulation select-none flex-col border-2 border-dashed border-red-500',
-        isDragging && 'z-10',
-      )}
-      ref={setNodeRef}
+      use:drag
       style={style}
-      {...listeners}
-      {...attributes}
+      class={clsx(
+        'absolute flex w-16 touch-manipulation select-none flex-col border-2 border-dashed border-red-500',
+      )}
     >
       <img alt={text} draggable={false} src={`images/${slug}.webp`} />
-      <p className='break-words text-center'>{text}</p>
+      <p class='break-words text-center'>{text}</p>
     </div>
   );
 };
-
-export const ElementCard = memo(ElementCardView);

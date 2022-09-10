@@ -1,16 +1,16 @@
 import './init';
 
-import { Route } from 'atomic-router-react';
-import { lazy, PropsWithChildren, Suspense } from 'react';
+import { Route } from 'atomic-router-solid';
+import { lazy, ParentComponent, Suspense } from 'solid-js';
 
 import { homeRoute } from '@/shared/config/routes';
 
 const HomePage = lazy(() => import('./Home'));
 
-const Layout = ({ children }: PropsWithChildren) => {
+const Layout: ParentComponent = (props) => {
   return (
-    <div className='flex h-full min-h-screen w-full flex-col items-center justify-between'>
-      {children}
+    <div class='flex h-full min-h-screen w-full flex-col items-center justify-between'>
+      {props.children}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { createRoot } from 'react-dom/client';
+import { render } from 'solid-js/web';
 
 import App from '@/app';
 
@@ -8,4 +8,4 @@ if (!appRootContainer) {
   throw new Error("Cannot find '#app-root' element!");
 }
 
-createRoot(appRootContainer).render(<App />);
+render(App, appRootContainer);

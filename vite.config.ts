@@ -1,4 +1,5 @@
-import reactPlugin from '@vitejs/plugin-react';
+
+import solidPlugin from 'vite-plugin-solid';
 import { defineConfig } from 'vite';
 import svgrPlugin from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -9,12 +10,11 @@ export default defineConfig({
       include: 'src/**/*.svg',
       svgrOptions: { memo: true, svgo: true, icon: true, exportType: 'named' },
     }),
-    reactPlugin(),
+    solidPlugin(),
     tsconfigPaths(),
   ],
   build: { sourcemap: true },
   server: {
-    hmr: true,
     host: true,
     port: 3000,
   },

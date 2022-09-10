@@ -1,41 +1,19 @@
-import {
-  DndContext,
-  DragEndEvent,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
-import { memo, PropsWithChildren } from 'react';
+import { useUnit } from 'effector-solid';
+import { ParentComponent } from 'solid-js';
 
-import { collisionDetection, restrictToWindowBorders } from '@/shared/utils';
+import { elementsModel } from '@/entities/Element';
+import { useDragEnd } from '@/shared/hooks';
 
-const BoardView = ({
-  children,
-  onDoubleClick,
-  onDragEnd,
-}: PropsWithChildren<{
-  onDoubleClick?: () => void;
-  onDragEnd?: (event: DragEndEvent) => void;
-}>) => {
-  const pointerSensor = useSensor(PointerSensor);
-  const sensors = useSensors(pointerSensor);
+export const Board: ParentComponent = (props) => {
+  const setPos = useUnit(elementsModel.setPosition);
+
+  useDragEnd((x, y, { draggable }) => {
+    setPos({ id: draggable.id.toString(), x, y });
+  });
 
   return (
-    <DndContext
-      collisionDetection={collisionDetection}
-      id='board'
-      modifiers={[restrictToWindowBorders]}
-      sensors={sensors}
-      onDragEnd={onDragEnd}
-    >
-      <div
-        className='relative h-full min-h-screen w-full overflow-hidden'
-        onDoubleClick={onDoubleClick}
-      >
-        {children}
-      </div>
-    </DndContext>
+    <div class='relative h-full min-h-screen w-full overflow-hidden'>
+      {props.children}
+    </div>
   );
 };
-
-export const Board = memo(BoardView);

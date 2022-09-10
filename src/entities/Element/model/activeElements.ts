@@ -15,6 +15,7 @@ const createElement = createEvent<{
 const generateBaseElements = createEvent();
 
 const $activeElements = createStore<ActiveElement[]>([]);
+const $activeElementsCount = $activeElements.map((elements) => elements.length);
 
 $activeElements.on(setPosition, (state, { id, ...pos }) =>
   state.map((el) =>
@@ -26,7 +27,7 @@ $activeElements.on(setPosition, (state, { id, ...pos }) =>
       : el,
   ),
 );
-
+$activeElements.watch(console.log);
 sample({
   clock: createElement,
   source: { all: $allElements, exist: $activeElements },
@@ -75,4 +76,10 @@ sample({
   target: $activeElements,
 });
 
-export { $activeElements, createElement, generateBaseElements, setPosition };
+export {
+  $activeElements,
+  $activeElementsCount,
+  createElement,
+  generateBaseElements,
+  setPosition,
+};

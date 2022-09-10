@@ -8,9 +8,10 @@ const getAllElementsFx = createEffect<void, Element[]>(async () => {
   return data;
 });
 
-const $allElements = createStore<Element[]>([]).on(
-  getAllElementsFx.doneData,
-  (_, payload) => payload,
-);
+const $allElements = createStore<Element[]>([]);
 
-export { $allElements, getAllElementsFx };
+$allElements.on(getAllElementsFx.doneData, (_, payload) => payload);
+
+const $allElementsCount = $allElements.map((elements) => elements.length);
+
+export { $allElements, $allElementsCount, getAllElementsFx };

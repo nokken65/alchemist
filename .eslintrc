@@ -14,7 +14,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
+    "plugin:solid/typescript",
     "plugin:effector/recommended",
     "plugin:effector/scope",
     "plugin:prettier/recommended",
@@ -22,7 +22,7 @@
   ],
   "plugins": [
     "@typescript-eslint",
-    "react",
+    "solid",
     "effector",
     "prettier",
     "simple-import-sort",
@@ -36,24 +36,6 @@
     "no-shadow": 0,
     "no-use-before-define": 0,
     "newline-before-return": 2,
-
-    "react/display-name": 0,
-    // "react/prop-types": 0,
-    "react/react-in-jsx-scope": 0,
-    "react/require-default-props": 0,
-    "react/jsx-props-no-spreading": 0,
-    "react/jsx-filename-extension": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "react/jsx-closing-bracket-location": 0,
-    "react/no-unstable-nested-components": 0,
-    "react/function-component-definition": 0,
-    "react/jsx-sort-props": [
-      2,
-      {
-        "callbacksLast": true,
-        "shorthandFirst": true
-      }
-    ],
 
     "simple-import-sort/imports": 2,
     "simple-import-sort/exports": 2,

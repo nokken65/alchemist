@@ -1,6 +1,5 @@
-import { Modifier } from '@dnd-kit/core';
 
-export const restrictToWindowBorders: Modifier = (args) => {
+export const restrictToWindowBorders = (args:any) => {
   const { transform, windowRect, activeNodeRect, active } = args;
 
   const activeX = active?.data.current?.x ? +active.data.current.x : 0;
